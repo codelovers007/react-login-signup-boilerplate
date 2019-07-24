@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Layout from './components/common/Layout';
+import { PrivateRoute } from './components/PrivateRoute';
 import {LoginPage} from './auth/LoginPage';
 import {RegisterPage} from './auth/RegisterPage';
 import {HomePage} from './home';
@@ -12,14 +13,12 @@ import {ContactPage} from './contact';
 function App() {
   return (
     <div className="App">
-      <Router history={browserHistory}>
-        <Route path="/" component={Layout}>
-          <IndexRoute component={HomePage}/>
-          <Route path="/about" component={AboutPage}/>
-          <Route path="/contact" component={ContactPage}/>
-          <Route path="/login" component={LoginPage}/>
-          <Route path="/register" component={RegisterPage}/>
-        </Route>
+      <Router>
+        <PrivateRoute exact path="/" render={() => <Layout><HomePage/></Layout>}/>
+        <Route path="/about" render={() => <Layout><AboutPage/></Layout>}/>
+        <Route path="/contact" render={() => <Layout><ContactPage/></Layout>}/>
+        <Route path="/login" render={() => <Layout><LoginPage/></Layout>}/>
+        <Route path="/register" render={() => <Layout><RegisterPage/></Layout>}/>
       </Router>
     </div>
   );

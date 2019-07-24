@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router';
+import { Link } from "react-router-dom";
 
 class LoginPage extends React.Component{
   render(){
