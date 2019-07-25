@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React from 'react';
 
-class HomePage extends Component{
+class HomePage extends React.Component{
   render(){
     return (
     <div className="container">
@@ -11,4 +11,4 @@ class HomePage extends Component{
   }
 }
 
-export {HomePage}
+export {HomePage};

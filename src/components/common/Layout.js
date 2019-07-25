@@ -2,7 +2,7 @@ import React from 'react';
 import './common.css';
 import {HeaderPage} from './Header';
 
-export default class Layout extends React.Component{
+class Layout extends React.Component{
   render(){
     return(
       <section className="page">
@@ -14,3 +14,5 @@ export default class Layout extends React.Component{
     );
   }
 }
+
+export {Layout};

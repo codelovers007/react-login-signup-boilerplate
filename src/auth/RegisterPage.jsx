@@ -1,7 +1,11 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
-import { userService } from '../services/user.service.js';
+// import { userService } from '../services/user.service.js';
+import { configVariable } from '../lib/config';
+import axios from 'axios'
+import { toast } from 'react-toastify';
+toast.configure()
 
 class RegisterPage extends React.Component{
 	constructor(props) {
@@ -28,18 +32,28 @@ class RegisterPage extends React.Component{
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({ submitted: true });
-		const data = {user: this.state}
-    userService.register(data)
-   .then(user => {
-     	userService.login({user: {email: this.state.email, password: this.state.password}})
-     	.then(user => {
-       const { from } = this.props.location.state || { from: { pathname: "/" } };
-       this.props.history.push(from);
-       },
-       error => this.setState({ error, loading: false })
-     	);
-    });
+    const {first_name, last_name, email, password, password_confirmation} = this.state
+    const data = {user: {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    }}
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': configVariable.authToken
+    }
+    axios.post(`${configVariable.apiUrl}/users`, JSON.stringify(data), {headers: headers})
+    .then(response => {
+      if(response.statusText==="Created"){
+        localStorage.setItem('user', JSON.stringify(response.data));
+        toast.success("Successfully Register")
+        this.props.history.push({ pathname: "/login" });
+      }
+    }).catch(error=> {
+      console.log("Registration error", error)
+    })
   }
 
   render(){
@@ -71,4 +85,4 @@ class RegisterPage extends React.Component{
   }
 }
 
-export {RegisterPage}
+export {RegisterPage};
