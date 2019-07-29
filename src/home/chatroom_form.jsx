@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { configVariable } from '../lib/config';
 import axios from 'axios'
-import { Form, Checkbox } from 'semantic-ui-react'
+import { Form, Checkbox, Dropdown } from 'semantic-ui-react'
 import { toast } from 'react-toastify';
 toast.configure()
 
@@ -15,22 +15,17 @@ class ChatroomForm extends Component {
       users: [],
       members: []
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleUserChange = this.handleUserChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(event, data) {
-    event.preventDefault();
-    if (data.type === "checkbox"){
-      if (data.checked) {
-        this.setState({members: [...this.state.members, data.user_id]})
-      } else {
-        let filteredArray = this.state.members.filter(u_id => u_id !== data.user_id)
-        this.setState({members: filteredArray});
-      }
-    }else {
-      this.setState({ name: data.value })
-    }
+  handleInputChange(event, data) {
+    this.setState({ name: data.value })
+  }
+
+  handleUserChange(event, data) {
+    this.setState({members: data.value})
   }
 
   handleSubmit(e) {
@@ -72,19 +67,27 @@ class ChatroomForm extends Component {
   }
 
   render() {
+    const options = []
+    this.state.users.map((user) => {
+      options.push({key: user.id, text: `${user.first_name} ${user.last_name}`, value: user.id})
+    })
     const { name } = this.state
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Input placeholder='Name' name='name' value={name} onChange={this.handleChange} />
+            <Form.Input placeholder='Name' name='name' value={name} onChange={this.handleInputChange} />
             <Form.Button content='Create Chatroom' />
           </Form.Group>
-          {
-            this.state.users.map((user) => {
-              return ( <Form.Group key={user.id}><Checkbox label={`${user.first_name} ${user.last_name}`} checked={this.state.members.includes(user.id)} user_id={user.id} name="checkbox" onClick={this.handleChange} /></Form.Group>)
-            })
-          }
+            <Dropdown 
+              name="contacts_dropdown"
+              fluid 
+              multiple 
+              search  
+              selection     
+              options={ options } 
+              onChange={ this.handleUserChange }     
+            />
         </Form>
       </div>
     )
