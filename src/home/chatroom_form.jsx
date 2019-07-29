@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { configVariable } from '../lib/config';
 import axios from 'axios'
-
 import { Form, Checkbox } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
+toast.configure()
 
 class ChatroomForm extends Component {
 
@@ -46,10 +47,12 @@ class ChatroomForm extends Component {
     }
     axios.post(`${configVariable.apiChatUrl}/scrums`, data, {headers: headers})
     .then(response => {
-      debugger
-      
+      if (response.status===200){
+        this.setState({members: [], name: ''})
+        toast.success("Successfully created")
+      }
     }).catch(error=> {
-      console.log("Registration error", error)
+      console.log("scrum creation error", error)
     })
   }
 
@@ -62,7 +65,7 @@ class ChatroomForm extends Component {
       'Content-Type': 'application/json',
       'Authorization': configVariable.authToken
     }
-    axios.get(`${configVariable.apiUrl}/users`, {headers: headers})
+    axios.get(`${configVariable.apiUrl}/users?user[access_token]=${user.access_token}`, {headers: headers})
     .then(response => {
       this.setState({users: response.data})
     })

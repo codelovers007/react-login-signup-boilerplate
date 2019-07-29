@@ -43,7 +43,9 @@ class LoginPage extends React.Component{
     axios.post(`${configVariable.apiUrl}/users/login`, JSON.stringify(data), {headers: headers})
     .then(response => {
       if(response.statusText==="Created"){
-        localStorage.setItem('user', JSON.stringify(response.data));
+        let token = {access_token: response.headers.accesstoken}
+        const user = Object.assign(response.data, token)
+        localStorage.setItem('user', JSON.stringify(user));
       	toast.success("Successfully Login")
         this.props.history.push({ pathname: "/" });
       }

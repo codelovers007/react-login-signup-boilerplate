@@ -47,7 +47,6 @@ class RegisterPage extends React.Component{
     axios.post(`${configVariable.apiUrl}/users`, JSON.stringify(data), {headers: headers})
     .then(response => {
       if(response.statusText==="Created"){
-        localStorage.setItem('user', JSON.stringify(response.data));
         toast.success("Successfully Register")
         this.props.history.push({ pathname: "/login" });
       }

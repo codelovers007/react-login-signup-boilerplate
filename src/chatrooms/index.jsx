@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { configVariable } from '../lib/config';
 import axios from 'axios'
 
-class RecentlyChatted extends Component {
+class Chatrooms extends Component {
 
   constructor(props) {
     super(props)
@@ -31,7 +31,7 @@ class RecentlyChatted extends Component {
   render() {
     return (
       <div>
-        <h5>Recently Chatted:</h5>
+        <h5>All Chatrooms:</h5>
         <List celled>
           {
             this.state.active_chats.map((chatroom) => {
@@ -52,4 +52,4 @@ class RecentlyChatted extends Component {
   }
 }
 
-export {RecentlyChatted}
+export {Chatrooms}

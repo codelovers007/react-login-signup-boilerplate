@@ -1,5 +1,6 @@
 import React from 'react';
 import './common.css';
+import { Segment } from 'semantic-ui-react'
 import {HeaderPage} from './Header';
 
 class Layout extends React.Component{
@@ -7,9 +8,9 @@ class Layout extends React.Component{
     return(
       <section className="page">
         <HeaderPage/>
-        <section>
+        <Segment secondary>
           {this.props.children}
-        </section>
+        </Segment>
       </section>
     );
   }
