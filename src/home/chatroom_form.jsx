@@ -69,7 +69,7 @@ class ChatroomForm extends Component {
   render() {
     const options = []
     this.state.users.map((user) => {
-      options.push({key: user.id, text: `${user.first_name} ${user.last_name}`, value: user.id})
+      options.push({key: user.id, text: `${user.first_name} ${user.last_name} ( ${user.email} )`, value: user.id})
     })
     const { name } = this.state
     return (
