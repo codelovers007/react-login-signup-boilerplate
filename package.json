@@ -5,7 +5,10 @@
   "dependencies": {
     "actioncable": "^5.2.3",
     "axios": "^0.19.0",
+    "base-64": "^0.1.0",
     "form-serialize": "^0.7.2",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^3.2.3",
@@ -13,7 +16,9 @@
     "react-scripts": "3.0.1",
     "react-toastify": "^5.3.2",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.3"
+    "semantic-ui-react": "^0.87.3",
+    "smart-time-ago": "^0.1.5",
+    "xlsx": "^0.15.1"
   },
   "scripts": {
     "start": "PORT=8000 react-scripts start",
